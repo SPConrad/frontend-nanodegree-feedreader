@@ -13,6 +13,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     margin: 0;
+    width: 100%;
 }
 
 a {
@@ -89,4 +90,8 @@ h2 {
     border-bottom: 1px solid #ddd;
     padding: 1em;
     margin: 0.5em 0;
+}
+
+.jasmine_html-reporter{
+    width: 100%;
 }
