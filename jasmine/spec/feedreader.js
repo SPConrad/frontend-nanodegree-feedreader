@@ -129,8 +129,6 @@ $(function() {
         });
 
         it('content changed when the loadFeed function was called', function(done){
-            console.log(feed);
-            console.log($('.feed'))
             expect($('.feed') !== feed).toBe(true);
             done();
         })
