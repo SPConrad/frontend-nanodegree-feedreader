@@ -33,9 +33,12 @@ $(function() {
          * and that the URL is not empty.
          */
          it('have valid URLs', function(){
+            var expression = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+            var regularExpressionUrl = new RegExp(expression);
+
             for (var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).toContain("http");
+                expect(allFeeds[i].url).toMatch(regularExpressionUrl);
             }
          });
 
@@ -71,7 +74,7 @@ $(function() {
          });
 
          it('is hidden by default', function(){
-            expect(body[0].className).toEqual('menu-hidden');
+            expect(body[0]).hasClass('menu-hidden').toBeTruthy();
          });
 
 
@@ -109,7 +112,7 @@ $(function() {
         });
 
         it('has at least one entry in the feed container after loading the feed', function(done){
-            expect($('.feed').children().length).toBeGreaterThan(0);
+            expect($('.feed .entry')).toBeDefined();
             done();
         });
     });
@@ -117,19 +120,21 @@ $(function() {
     /* TODO: Write a new test suite named "New Feed Selection"*/
     
     describe('News Feed Selection', function(){
-        var feed; 
+        var feed0, feed1; 
         beforeEach(function(done){
-            feed = $('.feed');
-            console.log(feed);
             setTimeout(function(){
                 loadFeed(0, function(){
-                done();
+                    feed0 = $('.feed');
+                    loadFeed(1, function(){
+                        feed1 = $('.feed');
+                        done();
+                 });
             });
             }, 1);
         });
 
         it('content changed when the loadFeed function was called', function(done){
-            expect($('.feed') !== feed).toBe(true);
+            expect(feed0 !== feed1).toBe(true);
             done();
         })
     });
